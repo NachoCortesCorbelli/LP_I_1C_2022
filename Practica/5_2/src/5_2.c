@@ -17,6 +17,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "biblioteca.h"
 
 int main(void) {
 
@@ -25,76 +26,41 @@ int main(void) {
 	int contadorNegativos;
 	int sumatoriaPares;
 	int mayorImpar;
-	int flagImpar;
 
-	flagImpar = 0;
 	sumatoriaPares = 0;
-	contadorPositivos = 0;
-	contadorNegativos = 0;
 
 	for(int i=0;i<10;i++)
 	{
-		do
-		{
-			printf("\nINGRESE UN NUMERO ENTRE -1000 y 1000: ");
-			scanf("%d",&vector[i]);
-		}while(vector[i]<-1000 || vector[i]>1000);
-		if(vector[i]>0)
-		{
-			contadorPositivos++;
-		}
-		if(vector[i]<0)
-		{
-			contadorNegativos++;
-		}
-		if(vector[i]%2==0)
-		{
-			sumatoriaPares+=vector[i];
-		}
-		if(flagImpar == 0 || (vector[i]%2!=0 && vector[i] > mayorImpar) )
-		{
-			mayorImpar = vector[i];
-			flagImpar = 1;
-		}
+		vector[i] = pideNumero(-1000, 1000);
 	}
-	printf("\nNUMEROS INGRESADOS: ");
-	for(int i=0;i<10;i++)
-	{
-		printf("%d ",vector[i]);
-	}
+
+	mostrar_vectorNumerico(vector, 10);
+
+	contadorPositivos = contador_Positivos(vector, 10);
 	printf("\nHAY %d NUMEROS POSITIVOS",contadorPositivos);
+
+	contadorNegativos = contador_Negativos(vector, 10);
 	printf("\nHAY %d NUMEROS NEGATIVOS",contadorNegativos);
-	if(sumatoriaPares > 0)
+
+	sumatoriaPares = sumador_Pares(vector, 10);
+	if(sumatoriaPares != 0)
 	{
-		printf("\nNUMEROS PARES: ");
-		for(int i=0;i<10;i++)
-		{
-			if(vector[i]%2==0)
-			{
-				printf("%d ",vector[i]);
-			}
-		}
+		mostrar_numerosPares(vector, 10);
 		printf("\nLA SUMATORIA DE LOS PARES: %d",sumatoriaPares);
 	}
 	else
 	{
-		printf("\nNO HAY NUMEROS PARES");
+		printf("\nNO HAY PARES");
 	}
-	if(flagImpar == 1)
+
+	if(!mayor_Impar(vector, 10, &mayorImpar))
 	{
-		printf("\nPOSICIONES EN DONDE HAY NUMEROS IMPARES: ");
-		for(int i=0;i<10;i++)
-		{
-			if(vector[i]%2!=0)
-			{
-				printf("%d ",i);
-			}
-		}
-		printf("\nEL MAYOR DE LOS IMPARES: %d",mayorImpar);
+		mostrar_posicionNumerosImpares(vector, 10);
+		printf("\nEL MAYOR IMPAR ES: %d",mayorImpar);
 	}
 	else
 	{
-		printf("\nNO HAY NUMEROS IMPARES");
+		printf("\nNO HAY IMPARES");
 	}
 
 	return EXIT_SUCCESS;
