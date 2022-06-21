@@ -21,6 +21,12 @@ static int esUnCuitValido(char *cadena, int limit);
 static int esLocalidad(char pCadena[], int longitud);
 static int esDireccion(char pCadena[], int longitud);
 
+/**
+ * \brief funcion estatica que verifica si la cadena es una direccion
+ * \param pCadena el puntero a la cadena
+ * \param longitud la longitud de la cadena
+ * \return retorna 1 en caso de VERDADERO, 0 de FALSO
+ */
 static int esDireccion(char pCadena[], int longitud) {
 	int retorno;
 	int contadorEspacios;
@@ -47,19 +53,16 @@ static int esDireccion(char pCadena[], int longitud) {
 								|| ((i == indexDireccion)
 										&& (pCadena[i] >= 'a'
 												&& (pCadena[i] <= 'z'))))) {
-					//printf("\nVALIDO EN: %c",pCadena[i]);
 					retorno = 1;
 				} else if ((i > 2 && pCadena[i] == ' ')
 						&& (contadorEspacios < 4)) {
 					indexDireccion = i + 1;
 					contadorEspacios++;
-					//printf("\nVALIDO EN: %c",pCadena[i]);
 					retorno = 1;
 				} else if ((i > 3 && (pCadena[i] >= '1' && pCadena[i] <= '9'))
 						&& (contadorNumeros < 5)) {
 					contadorNumeros++;
 					flagNumeros = 1;
-					//printf("\nVALIDO EN: %c",pCadena[i]);
 					retorno = 1;
 				} else if (flagNumeros == 0) {
 					retorno = 0;
@@ -71,7 +74,12 @@ static int esDireccion(char pCadena[], int longitud) {
 
 	return retorno;
 }
-
+/**
+ * \brief funcion estatica que verifica si la cadena es Localidad
+ * \param pCadena el puntero a la cadena
+ * \param longitud la longitud de la cadena
+ * \return retorna 1 en caso de VERDADERO, 0 de FALSO
+ */
 static int esLocalidad(char pCadena[], int longitud) {
 	int retorno;
 	int contadorEspacios;
@@ -110,6 +118,12 @@ static int esLocalidad(char pCadena[], int longitud) {
 
 	return retorno;
 }
+/**
+ * \brief funcion estatica que verifica si la cadena es un cuit
+ * \param cadena el puntero a la cadena
+ * \param limit la longitud de la cadena
+ * \return retorna 1 en caso de VERDADERO, 0 de FALSO
+ */
 static int esUnCuitValido(char *cadena, int limit) {
 	int retorno;
 	int notValid = 0;
@@ -343,6 +357,12 @@ static int obtengoNombreApellido(char pCadena[], int longitud) {
 	return retorno;
 
 }
+/**
+ * \brief funcion estatica que obtiene la localidad
+ * \param pCadena el puntero a la cadena
+ * \param longitud la longitud de la cadena
+ * \return retorna 0 en caso de exito , -1 de error
+ */
 static int obtengoLocalidad(char pCadena[], int longitud) {
 
 	int retorno;
@@ -385,7 +405,12 @@ static int obtengoLocalidad(char pCadena[], int longitud) {
 	return retorno;
 
 }
-
+/**
+ * \brief funcion estatica que obtiene la direccion
+ * \param pCadena el puntero a la cadena
+ * \param longitud la longitud de la cadena
+ * \return retorna 0 en caso de exito , -1 de error
+ */
 static int obtengoDireccion(char pCadena[], int longitud) {
 
 	int retorno;
@@ -421,15 +446,11 @@ static int obtengoDireccion(char pCadena[], int longitud) {
 					}
 				}
 			}
-
 		}
-
 		strncpy(pCadena, bufferString, SIZE_STRING);
 		retorno = 0;
 	}
-
 	return retorno;
-
 }
 
 /**
@@ -654,6 +675,15 @@ int utn_pedirCadena(char *pCadena, int tamano, char mensaje[],
 	return retorno;
 
 }
+/**
+ * \brief Funcion que pide el CUIT
+ * \param pResult el puntero al CUIT
+ * \param tamano el tamano de la cadena
+ * \param msg el mensaje
+ * \param msgError el mensaje de error
+ * \param retry la cantidad de reintentos
+ * \return retorna 0 en caso de exito, -1 de ERROR
+ */
 int utn_pedirCuit(char *pResult, int limite, char *msg, char *msgError,
 		int retry) {
 	int retorno = -1;
@@ -680,6 +710,17 @@ int utn_pedirCuit(char *pResult, int limite, char *msg, char *msgError,
 
 	return retorno;
 }
+/**
+ * \brief Funcion que pide la Localidad
+ * \param pLocalidad el puntero a la localidad
+ * \param tamano el tamano de la cadena
+ * \param mensaje el mensaje
+ * \param mensajeError el mensaje de error
+ * \param minimo el minimo a tomar
+ * \param maximo el maximo a tomar
+ * \param reintentos la cantidad de reintentos
+ * \return retorna 0 en caso de exito, -1 de ERROR
+ */
 int utn_pedirLocalidad(char *pLocalidad, int tamano, char mensaje[],
 		char mensajeError[], int minimo, int maximo, int reintentos) {
 	int retorno;
@@ -712,8 +753,19 @@ int utn_pedirLocalidad(char *pLocalidad, int tamano, char mensaje[],
 
 	return retorno;
 }
+/**
+ * \brief Funcion que pide la direccion
+ * \param pDireccion el puntero a la direccion
+ * \param tamano el tamano de la cadena
+ * \param mensaje el mensaje
+ * \param mensajeError el mensaje de error
+ * \param minimo el minimo a tomar
+ * \param maximo el maximo a tomar
+ * \param reintentos la cantidad de reintentos
+ * \return retorna 0 en caso de exito, -1 de ERROR
+ */
 int utn_pedirDireccion(char *pDireccion, int tamano, char mensaje[],
-		char mensajeError[], int minimo, int maximo, int reintentos) {
+		char mensajeError[], int minimo, int maximo, int reintentos){
 	int retorno;
 
 	char bufferCadena[SIZE_STRING];

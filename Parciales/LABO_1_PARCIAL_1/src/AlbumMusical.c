@@ -16,9 +16,12 @@
 void album_inicializarArray(eAlbum arrayAlbums[],int limite)
 {
 	int i;
-	for(i = 0; i < limite; i++)
+	if(arrayAlbums != NULL && limite > 0)
 	{
-		arrayAlbums[i].isEmpty = TRUE;
+		for(i = 0; i < limite; i++)
+		{
+			arrayAlbums[i].isEmpty = TRUE;
+		}
 	}
 }
 /**
@@ -99,12 +102,15 @@ int album_isArrayFull(eAlbum arrayAlbums[],int limite)
 void album_mostrarTipoDeAlbum(eTipoDeAlbum arrayTipoDeAlbum[],int limite)
 {
 	int i;
-	printf("\nID  |TIPO DE ALBUM       |");
-	printf("\n-------------------------|");
-	for(i=0;i<limite;i++)
+	if(arrayTipoDeAlbum != NULL && limite > 0)
 	{
-		printf("\n%-4d|",arrayTipoDeAlbum[i].idTipoDeAlbum);
-		printf("%-20s|",arrayTipoDeAlbum[i].descripcion);
+		printf("\nID  |TIPO DE ALBUM       |");
+		printf("\n-------------------------|");
+		for(i=0;i<limite;i++)
+		{
+			printf("\n%-4d|",arrayTipoDeAlbum[i].idTipoDeAlbum);
+			printf("%-20s|",arrayTipoDeAlbum[i].descripcion);
+		}
 	}
 }
 /**
@@ -115,12 +121,15 @@ void album_mostrarTipoDeAlbum(eTipoDeAlbum arrayTipoDeAlbum[],int limite)
 void album_mostrarGeneros(eGenero arrayGeneros[],int limite)
 {
 	int i;
-	printf("\nID  |GENEROS             |");
-	printf("\n-------------------------|");
-	for(i=0;i<limite;i++)
+	if(arrayGeneros != NULL && limite > 0)
 	{
-		printf("\n%-4d|",arrayGeneros[i].idGenero);
-		printf("%-20s|",arrayGeneros[i].descripcion);
+		printf("\nID  |GENEROS             |");
+		printf("\n-------------------------|");
+		for(i=0;i<limite;i++)
+		{
+			printf("\n%-4d|",arrayGeneros[i].idGenero);
+			printf("%-20s|",arrayGeneros[i].descripcion);
+		}
 	}
 }
 /**
@@ -131,12 +140,15 @@ void album_mostrarGeneros(eGenero arrayGeneros[],int limite)
 void album_mostrarTiposDeArtistas(eTipoArtista arrayTipoArtista[],int limite)
 {
 	int i;
-	printf("\nID  |TIPOS DE ARTISTAS   |");
-	printf("\n-------------------------|");
-	for(i=0;i<limite;i++)
+	if(arrayTipoArtista != NULL && limite > 0)
 	{
-		printf("\n%-4d|",arrayTipoArtista[i].idTipoArtista);
-		printf("%-20s|",arrayTipoArtista[i].descripcion);
+		printf("\nID  |TIPOS DE ARTISTAS   |");
+		printf("\n-------------------------|");
+		for(i=0;i<limite;i++)
+		{
+			printf("\n%-4d|",arrayTipoArtista[i].idTipoArtista);
+			printf("%-20s|",arrayTipoArtista[i].descripcion);
+		}
 	}
 }
 /**
@@ -147,12 +159,15 @@ void album_mostrarTiposDeArtistas(eTipoArtista arrayTipoArtista[],int limite)
 void album_mostrarArtistas(eArtista arrayArtistas[],int limite)
 {
 	int i;
-	printf("\nID  |ARTISTAS            |");
-	printf("\n-------------------------|");
-	for(i=0;i<limite;i++)
+	if(arrayArtistas != NULL && limite > 0)
 	{
-		printf("\n%-4d|",arrayArtistas[i].idArtista);
-		printf("%-20s|",arrayArtistas[i].nombre);
+		printf("\nID  |ARTISTAS            |");
+		printf("\n-------------------------|");
+		for(i=0;i<limite;i++)
+		{
+			printf("\n%-4d|",arrayArtistas[i].idArtista);
+			printf("%-20s|",arrayArtistas[i].nombre);
+		}
 	}
 }
 /**
@@ -202,22 +217,29 @@ void album_altaForzada(eAlbum arrayAlbums[],int limite,
 					   int dia,int mes, int anio, float importe)
 {
 	int i;
-	for(i = 0; i < limite; i++)
+	if(arrayAlbums != NULL && limite > 0 && idAlbum > 0 &&
+	   idGenero > 0 && idTipoArtista > 0 && idTipoDeAlbum > 0 &&
+	   idArtista > 0 && titulo != NULL && (dia > 0 && dia <= 31) &&
+	   (mes > 0 && mes <= 12 ) && (anio > 300 && anio <= 2022) &&
+	   importe > 0)
 	{
-		if(arrayAlbums[i].isEmpty == TRUE)
+		for(i = 0; i < limite; i++)
 		{
-			arrayAlbums[i].isEmpty = FALSE;
-			arrayAlbums[i].idAlbum = idAlbum;
-			arrayAlbums[i].idGenero = idGenero;
-			arrayAlbums[i].idArtista = idArtista;
-			arrayAlbums[i].idTipoArtista = idTipoArtista;
-			arrayAlbums[i].importe = importe;
-			arrayAlbums[i].idTipoDeAlbum = idTipoDeAlbum;
-			strncpy(arrayAlbums[i].titulo,titulo,51);
-			arrayAlbums[i].fechaPublicacion.dia = dia;
-			arrayAlbums[i].fechaPublicacion.mes= mes;
-			arrayAlbums[i].fechaPublicacion.anio = anio;
-			break;
+			if(arrayAlbums[i].isEmpty == TRUE)
+			{
+				arrayAlbums[i].isEmpty = FALSE;
+				arrayAlbums[i].idAlbum = idAlbum;
+				arrayAlbums[i].idGenero = idGenero;
+				arrayAlbums[i].idArtista = idArtista;
+				arrayAlbums[i].idTipoArtista = idTipoArtista;
+				arrayAlbums[i].importe = importe;
+				arrayAlbums[i].idTipoDeAlbum = idTipoDeAlbum;
+				strncpy(arrayAlbums[i].titulo,titulo,51);
+				arrayAlbums[i].fechaPublicacion.dia = dia;
+				arrayAlbums[i].fechaPublicacion.mes= mes;
+				arrayAlbums[i].fechaPublicacion.anio = anio;
+				break;
+			}
 		}
 	}
 }
@@ -268,7 +290,7 @@ int album_pedirTipoDeAlbum(eTipoDeAlbum arrayTipoDeAlbum[],int limite, int* pIdT
 {
 	int retorno = -1;
 	int auxId;
-	if(arrayTipoDeAlbum != NULL && pIdTipoDeAlbum!= NULL)
+	if(arrayTipoDeAlbum != NULL && limite > 0 && pIdTipoDeAlbum!= NULL)
 	{
 		album_mostrarTipoDeAlbum(arrayTipoDeAlbum, limite);
 		if(!utn_pedirEntero(&auxId, "\nINGRESE EL ID DE TIPO DE ALBUM: ", "\nERROR\nREINGRESE EL ID\n",
@@ -291,7 +313,7 @@ int album_pedirGenero(eGenero arrayGeneros[],int limite, int* pIdGenero)
 {
 	int retorno = -1;
 	int auxId;
-	if(arrayGeneros != NULL && pIdGenero != NULL)
+	if(arrayGeneros != NULL && limite > 0 && pIdGenero != NULL)
 	{
 		album_mostrarGeneros(arrayGeneros, limite);
 		if(!utn_pedirEntero(&auxId, "\nINGRESE EL ID DE GENERO: ", "\nERROR\nREINGRESE EL ID\n",
@@ -314,7 +336,7 @@ int album_pedirArtista(eArtista arrayArtistas[],int limite, int* pIdArtista)
 {
 	int retorno = -1;
 	int auxId;
-	if(arrayArtistas != NULL && pIdArtista != NULL)
+	if(arrayArtistas != NULL && limite > 0 && pIdArtista != NULL)
 	{
 		album_mostrarArtistas(arrayArtistas, limite);
 		if(!utn_pedirEntero(&auxId, "\nINGRESE EL ID DE ARTISTA: ", "\nERROR\nREINGRESE EL ID\n",
@@ -337,7 +359,7 @@ int album_pedirTipoDeArtista(eTipoArtista arrayTipoArtista[],int limite, int* pI
 {
 	int retorno = -1;
 	int auxId;
-	if(arrayTipoArtista != NULL && pIdTipoArtista != NULL)
+	if(arrayTipoArtista != NULL && limite > 0 &&pIdTipoArtista != NULL)
 	{
 		album_mostrarTiposDeArtistas(arrayTipoArtista, limite);
 		if(!utn_pedirEntero(&auxId, "\nINGRESE EL ID DE TIPO DE ARTISTA: ", "\nERROR\nREINGRESE EL ID\n",
@@ -535,10 +557,10 @@ int album_modificar(eAlbum arrayAlbums[], int limite,eTipoDeAlbum arrayTipoDeAlb
 	return retorno;
 }
 /**
- * \brief
- * \param arrayAlbums
- * \param limite
- * \return
+ * \brief Funcion que da de baja un album
+ * \param arrayAlbums el array de albums
+ * \param limite el limite del array
+ * \return reotorna 0 en caso exitoso, -1 de ERROR
  */
 int album_baja(eAlbum arrayAlbums[], int limite)
 {
@@ -568,8 +590,8 @@ int album_baja(eAlbum arrayAlbums[], int limite)
 	return retorno;
 }
 /**
- * \brief
- * \param unAlbum
+ * \brief Imprime un album
+ * \param unAlbum un Album
  */
 void album_imprimirAlbum(eAlbum unAlbum)
 {
@@ -581,11 +603,11 @@ void album_imprimirAlbum(eAlbum unAlbum)
 							 unAlbum.fechaPublicacion.anio);
 }
 /**
- * \brief
- * \param arrayAlbums
- * \param limiteAlbums
- * \param pCantidadDeAlbums
- * \return
+ * \brief Cuenta cuan albums son anteriores a los 2000
+ * \param arrayAlbums el array de albums
+ * \param limiteAlbums el limite del array
+ * \param pCantidadDeAlbums puntero de la cantidad de albums
+ * \return retorna 0 en caso exitoso, -1 error
  */
 int album_contadorAlbumsPre2000(eAlbum arrayAlbums[],int limiteAlbums, int* pCantidadDeAlbums)
 {
@@ -611,10 +633,10 @@ int album_contadorAlbumsPre2000(eAlbum arrayAlbums[],int limiteAlbums, int* pCan
 	return retorno;
 }
 /**
- * \brief
- * \param arrayAlbums
- * \param limiteAlbums
- * \return
+ * \brief Muestra los alums anteriores al 2000
+ * \param arrayAlbums el array de albums
+ * \param limiteAlbums el limite del array
+ * \return retorna 0 en caso de OK, -1 de ERROR
  */
 int album_mostrarAlbumsPre2000(eAlbum arrayAlbums[],int limiteAlbums)
 {
@@ -635,82 +657,93 @@ int album_mostrarAlbumsPre2000(eAlbum arrayAlbums[],int limiteAlbums)
 	return retorno;
 }
 /**
- * \brief
- * \param arrayAlbums
- * \param limiteAlbums
+ * \brief Muestra los albums
+ * \param arrayAlbums el array de albums
+ * \param limiteAlbums el limite de albums
  */
 void album_mostrarAlbums(eAlbum arrayAlbums[],int limiteAlbums)
 {
 	int i;
-
-	printf("\n|ID  |ALBUMS              |IMPORTE |FECHA     |");
-	printf("\n|---------------------------------------------|");
-	for(i = 0;i< limiteAlbums;i++)
+	if(arrayAlbums != NULL && limiteAlbums > 0)
 	{
-		if(arrayAlbums[i].isEmpty == FALSE)
+		printf("\n|ID  |ALBUMS              |IMPORTE |FECHA     |");
+		printf("\n|---------------------------------------------|");
+		for(i = 0;i< limiteAlbums;i++)
 		{
-			album_imprimirAlbum(arrayAlbums[i]);
+			if(arrayAlbums[i].isEmpty == FALSE)
+			{
+				album_imprimirAlbum(arrayAlbums[i]);
+			}
 		}
 	}
 }
 /**
- * \brief
- * \param arrayGeneros
- * \param limite
- * \param idGenero
+ * \brief Imprime el genero por id de Genero
+ * \param arrayGeneros el array de Generos
+ * \param limite el limite del array
+ * \param idGenero el id de genero
  */
 void album_imprimirGeneroPorId(eGenero arrayGeneros[],int limite, int idGenero)
 {
 	int i;
-	for(i = 0;i<limite;i++)
+	if(arrayGeneros != NULL && limite > 0 && idGenero > 0)
 	{
-		if(arrayGeneros[i].idGenero == idGenero )
+		for(i = 0;i<limite;i++)
 		{
-			printf("%-30s|",arrayGeneros[i].descripcion);
-			break;
+			if(arrayGeneros[i].idGenero == idGenero )
+			{
+				printf("%-30s|",arrayGeneros[i].descripcion);
+				break;
+			}
 		}
 	}
 }
 /**
- * \brief
- * \param arrayArtistas
- * \param limite
- * \param idArtistas
+ * \brief Imprime el artista por id artista
+ * \param arrayArtistas el array de artistas
+ * \param limite el limite del array
+ * \param idArtistas el id de artistas
  */
 void album_imprimirArtistaPorId(eArtista arrayArtistas[],int limite, int idArtistas)
 {
 	int i;
-	for(i = 0;i<limite;i++)
+	if(arrayArtistas != NULL && limite > 0 && idArtistas > 0)
 	{
-		if(arrayArtistas[i].idArtista == idArtistas)
+		for(i = 0;i<limite;i++)
 		{
-			printf("%-30s|",arrayArtistas[i].nombre);
-			break;
+			if(arrayArtistas[i].idArtista == idArtistas)
+			{
+				printf("%-30s|",arrayArtistas[i].nombre);
+				break;
+			}
 		}
 	}
 }
 /**
- * \brief
- * \param arrayTipoArtista
- * \param limite
- * \param idTipoArtista
+ * \brief Imprime el tipo de artista por Id tipo de artista
+ * \param arrayTipoArtista el array de tipo de artista
+ * \param limite el limite del array
+ * \param idTipoArtista el id de tipo de artista
  */
 void album_imprimirTipoDeArtistaPorId(eTipoArtista arrayTipoArtista[],int limite, int idTipoArtista)
 {
 	int i;
-	for(i = 0;i<limite;i++)
+	if(arrayTipoArtista != NULL && limite > 0 && idTipoArtista > 0)
 	{
-		if(arrayTipoArtista[i].idTipoArtista == idTipoArtista)
+		for(i = 0;i<limite;i++)
 		{
-			printf("%-6s|",arrayTipoArtista[i].descripcion);
-			break;
+			if(arrayTipoArtista[i].idTipoArtista == idTipoArtista)
+			{
+				printf("%-6s|",arrayTipoArtista[i].descripcion);
+				break;
+			}
 		}
 	}
 }
 /**
- * \brief
- * \param arrayAlbums
- * \param limite
+ * \brief Muestra los albums que no son de vinilo
+ * \param arrayAlbums el arrray de albums
+ * \param limite el limite del array
  */
 void album_mostrarAlbumsQueNoSonDeVinilo(eAlbum arrayAlbums[],int limite)
 {
@@ -728,18 +761,18 @@ void album_mostrarAlbumsQueNoSonDeVinilo(eAlbum arrayAlbums[],int limite)
 	}
 }
 /**
- * \brief
- * \param arrayAlbums
- * \param limite
- * \param pContadorAlbums
- * \return
+ * \brief Cuenta la cantidad de albums
+ * \param arrayAlbums el array de albums
+ * \param limite el limite del array
+ * \param pContadorAlbums puntero contador de albums
+ * \return retorna 0 en caso de exito, -1 de ERROR
  */
 int album_contadorDeAlbums(eAlbum arrayAlbums[],int limite,int* pContadorAlbums)
 {
 	int retorno = -1;
 	int auxContadorAlbums = 0;
 	int i;
-	if(arrayAlbums != NULL && limite > 0)
+	if(arrayAlbums != NULL && limite > 0 && pContadorAlbums != NULL)
 	{
 		for(i=0;i<limite;i++)
 		{
@@ -757,11 +790,11 @@ int album_contadorDeAlbums(eAlbum arrayAlbums[],int limite,int* pContadorAlbums)
 	return retorno;
 }
 /**
- * \brief
- * \param arrayAlbums
- * \param limite
- * \param pTotal
- * \return
+ * \brief Calcula el importe total de todos los albums
+ * \param arrayAlbums el array de albums
+ * \param limite el limite del array
+ * \param pTotal el puntero del total
+ * \return retorna 0 en caso de exito, -1 de ERROR
  */
 int album_importeTotal(eAlbum arrayAlbums[],int limite,float* pTotal)
 {
@@ -784,19 +817,19 @@ int album_importeTotal(eAlbum arrayAlbums[],int limite,float* pTotal)
 	return retorno;
 }
 /**
- * \brief
- * \param arrayAlbums
- * \param limite
- * \param importeTotal
- * \param pImportePromedio
- * \return
+ * \brief Calcula el importe promedio de todos los albums
+ * \param arrayAlbums el array de albums
+ * \param limite el limite del array
+ * \param importeTotal el importe total
+ * \param pImportePromedio puntero del importe promedio
+ * \return retorna 0 en caso de exito, -1 de error
  */
 int album_importePromedio(eAlbum arrayAlbums[],int limite,float importeTotal, float* pImportePromedio)
 {
 	float retorno = -1;
 	int cantidadDeAlbums;
 
-	if(arrayAlbums != NULL && limite > 0 && importeTotal > 0)
+	if(arrayAlbums != NULL && limite > 0 && importeTotal > 0 && pImportePromedio != NULL)
 	{
 		if(!album_contadorDeAlbums(arrayAlbums, limite, &cantidadDeAlbums))
 		{
@@ -807,11 +840,11 @@ int album_importePromedio(eAlbum arrayAlbums[],int limite,float importeTotal, fl
 	return retorno;
 }
 /**
- * \brief
- * \param arrayAlbums
- * \param limite
- * \param pCantidadAlbums
- * \return
+ * \brief Cuenta los albums que superan el importe promedio
+ * \param arrayAlbums el array de albums
+ * \param limite el limite del array
+ * \param pCantidadAlbums el puntero de la cantidad de albums
+ * \return retorna 0 en caso exitos, -1 de error
  */
 int album_contadorAlbumsSuperanPromedio(eAlbum arrayAlbums[],int limite, int* pCantidadAlbums)
 {
@@ -843,10 +876,10 @@ int album_contadorAlbumsSuperanPromedio(eAlbum arrayAlbums[],int limite, int* pC
 	return retorno;
 }
 /**
- * \brief
- * \param arrayAlbums
- * \param limite
- * \return
+ * \brief Muestra los albums que superan el importe promedio
+ * \param arrayAlbums el array de albums
+ * \param limite el limite del array
+ * \return retorna 0 en caso exitoso, -1 de ERROR
  */
 int album_mostrarAlbumsSuperanPromedio(eAlbum arrayAlbums[],int limite)
 {
@@ -873,17 +906,17 @@ int album_mostrarAlbumsSuperanPromedio(eAlbum arrayAlbums[],int limite)
 	return retorno;
 }
 /**
- * \brief
- * \param arrayAlbums
- * \param limite
- * \param anio
- * \return
+ * \brief Muestra los albums de un anio determinado
+ * \param arrayAlbums el array de albums
+ * \param limite el limite del array
+ * \param anio el anio
+ * \return retorna 0 en caso de exito, -1 de ERROR
  */
 int album_mostrarAlbumsPorAnioDeterminado(eAlbum arrayAlbums[],int limite, int anio)
 {
 	int retorno = -1;
 	int i;
-	if(arrayAlbums != NULL && limite > 0)
+	if(arrayAlbums != NULL && limite > 0 && anio <= 2022 && anio > 300)
 	{
 		for(i = 0; i < limite; i++)
 		{
@@ -898,12 +931,12 @@ int album_mostrarAlbumsPorAnioDeterminado(eAlbum arrayAlbums[],int limite, int a
 	return retorno;
 }
 /**
- * \brief
- * \param arrayAlbums
- * \param limite
- * \param arrayArtistas
- * \param limiteArtistas
- * \return
+ * \brief Muestra los albums por artista
+ * \param arrayAlbums el array de albums
+ * \param limite el limite del array de albums
+ * \param arrayArtistas el array de artistas
+ * \param limiteArtistas el limite del array de artistas
+ * \return retorna 0 en caso de exito, -1 de ERROR
  */
 int album_mostrarAlbumsPorArtista(eAlbum arrayAlbums[],int limite, eArtista arrayArtistas[], int limiteArtistas)
 {
@@ -929,10 +962,10 @@ int album_mostrarAlbumsPorArtista(eAlbum arrayAlbums[],int limite, eArtista arra
 	return retorno;
 }
 /**
- * \brief
- * \param arrayAlbums
- * \param limite
- * \param importeMasAlto
+ * \brief Muestra los albums con el importe mas alto
+ * \param arrayAlbums el array de albums
+ * \param limite el limite del array
+ * \param importeMasAlto el importe mas alto
  */
 void album_mostrarAlbumsConImporteMasAlto(eAlbum arrayAlbums[],int limite, float importeMasAlto)
 {
@@ -951,11 +984,11 @@ void album_mostrarAlbumsConImporteMasAlto(eAlbum arrayAlbums[],int limite, float
 	}
 }
 /**
- * \brief
- * \param arrayAlbums
- * \param limite
- * \param pImporteAlto
- * \return
+ * \brief Busca el el importe mas alto
+ * \param arrayAlbums el array de albums
+ * \param limite el limite del array
+ * \param pImporteAlto puntero del importe mas alto
+ * \return reotorna 0 en caso exitoso, -1 de ERROR
  */
 int album_buscarImporteMasAlto(eAlbum arrayAlbums[],int limite, float* pImporteAlto)
 {
@@ -981,10 +1014,10 @@ int album_buscarImporteMasAlto(eAlbum arrayAlbums[],int limite, float* pImporteA
 	return retorno;
 }
 /**
- * \brief
- * \param arrayAlbums
- * \param limite
- * \return
+ * \brief Ordena el array de albums por importe
+ * \param arrayAlbums el array de albums
+ * \param limite el limite del array
+ * \return retorna 0 en caso de OK, -1 de ERROR
  */
 int album_ordenamientoPorImporte(eAlbum arrayAlbums[],int limite)
 {
@@ -1018,10 +1051,10 @@ int album_ordenamientoPorImporte(eAlbum arrayAlbums[],int limite)
 	return retorno;
 }
 /**
- * \brief
- * \param arrayAlbums
- * \param limite
- * \return
+ * \brief Ordena el array de albums por titulo
+ * \param arrayAlbums el array de albums
+ * \param limite el limite del array
+ * \return retona 0 en caso de OK, -1 de ERROR
  */
 int album_ordenamientoPorTitulo(eAlbum arrayAlbums[],int limite)
 {
@@ -1054,10 +1087,10 @@ int album_ordenamientoPorTitulo(eAlbum arrayAlbums[],int limite)
 	return retorno;
 }
 /**
- * \brief
- * \param arrayAlbums
- * \param limite
- * \return
+ * \brief Muestra y realiza las funciones del menu de informes
+ * \param arrayAlbums el array de albums
+ * \param limite el limite del array
+ * \return retorna la opcion en caso exitoso, -1 de error
  */
 int album_subMenuInformes(eAlbum arrayAlbums[],int limite)
 {
@@ -1123,18 +1156,18 @@ int album_subMenuInformes(eAlbum arrayAlbums[],int limite)
 	return opcion;
 }
 /**
- * \brief
- * \param arrayAlbums
- * \param limite
- * \param arrayGeneros
- * \param limiteGeneros
- * \param arrayArtistas
- * \param limiteArtista
- * \param arrayTipoArtista
- * \param limiteTipoArtista
- * \param arrayTipoDeAlbum
- * \param limiteTipoDeAlbum
- * \return
+ * \brief Muestra y realiza las funciones del menu de listado
+ * \param arrayAlbums el array de albums
+ * \param limite el limite del array de albums
+ * \param arrayGeneros el array de generos
+ * \param limiteGeneros el limite del array de generos
+ * \param arrayArtistas el array de artistas
+ * \param limiteArtista el limite del array de artistas
+ * \param arrayTipoArtista el array de tipo de artistas
+ * \param limiteTipoArtista el limite del array de tipo de artista
+ * \param arrayTipoDeAlbum el array de tipo de album
+ * \param limiteTipoDeAlbum el limite del array de tipo de album
+ * \return retorna la opcion en caso de OK, -1 de ERROR
  */
 int album_subMenuListado(eAlbum arrayAlbums[],int limite,
 			   	   	     eGenero arrayGeneros[],int limiteGeneros,
@@ -1339,19 +1372,19 @@ int album_subMenuListado(eAlbum arrayAlbums[],int limite,
 	return opcion;
 }
 /**
- * \brief
- * \param arrayAlbums
- * \param limite
- * \param pIdAlbum
- * \param arrayGeneros
- * \param limiteGeneros
- * \param arrayArtistas
- * \param limiteArtista
- * \param arrayTipoArtista
- * \param limiteTipoArtista
- * \param arrayTipoDeAlbum
- * \param limiteTipoDeAlbum
- * \return
+ * \brief Muestra y realiza las funciones(ABM) del menu principal
+ * \param arrayAlbums el array de albums
+ * \param limite el limite del array de albums
+ * \param pIdAlbum el puntero del id de album
+ * \param arrayGeneros el array de generos
+ * \param limiteGeneros el limite del array de generos
+ * \param arrayArtistas el array de artistas
+ * \param limiteArtista el limite del array de artista
+ * \param arrayTipoArtista el array de tipo de artista
+ * \param limiteTipoArtista el limite del array de tipo de artista
+ * \param arrayTipoDeAlbum el array de tipo de album
+ * \param limiteTipoDeAlbum el limite del array de tipo de album
+ * \return retona la opcion en caso de OK, -1 de ERROR
  */
 int album_menu(eAlbum arrayAlbums[],int limite, int* pIdAlbum,
 			   eGenero arrayGeneros[],int limiteGeneros,
@@ -1363,7 +1396,11 @@ int album_menu(eAlbum arrayAlbums[],int limite, int* pIdAlbum,
 	int opcionMenuListado;
 	int opcionMenuInformes;
 
-	if(arrayAlbums != NULL && limite > 0 && pIdAlbum != NULL)
+	if(arrayAlbums != NULL && limite > 0 && pIdAlbum != NULL &&
+	   arrayGeneros != NULL && limiteGeneros > 0 &&
+	   arrayArtistas != NULL && limiteArtista > 0 &&
+	   arrayTipoArtista != NULL && limiteTipoArtista > 0 &&
+	   arrayTipoDeAlbum !=  NULL && limiteTipoDeAlbum > 0)
 	{
 		if(!utn_pedirEntero(&opcion, "\n ****MENU***"
 								 	 "\n|¯¯¯¯¯¯¯¯¯¯¯|"

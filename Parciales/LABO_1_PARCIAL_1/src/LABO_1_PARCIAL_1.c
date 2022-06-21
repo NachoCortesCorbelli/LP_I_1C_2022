@@ -33,7 +33,8 @@ int main(void) {
 	int opcionMenu;
 
 	album_inicializarArray(arrayAlbums, QTY_ALBUMS);
-	//ALTAS FORZADAS
+
+	//ALTAS FORZADAS----------------------------------
 	album_altaForzada(arrayAlbums, QTY_ALBUMS, 1, 1,2,
 					  1, 1, "Piano Bar",
 					  22, 9, 1984, 1325.25);
@@ -58,6 +59,7 @@ int main(void) {
 	album_altaForzada(arrayAlbums, QTY_ALBUMS, 8, 4,3,
 					  3, 2, "Painkiller",
 					  3, 9, 1990, 2300.85);
+	//------------------------------------------------
 	do{
 		opcionMenu = album_menu(arrayAlbums, QTY_ALBUMS, &idAlbum, arrayGeneros, QTY_GENEROS,
 				 	 	 	 	arrayArtistas, QTY_ARTISTAS, arrayTipoArtista, QTY_TIPOARTISTA,

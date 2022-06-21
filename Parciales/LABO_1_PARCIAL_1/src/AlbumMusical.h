@@ -19,6 +19,7 @@
 #define QTY_ARTISTAS 6
 #define QTY_TIPOARTISTA 2
 #define QTY_TIPODEALBUM 3
+
 typedef struct
 {
 	int idTipoDeAlbum;
