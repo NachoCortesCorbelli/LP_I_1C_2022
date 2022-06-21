@@ -11,8 +11,8 @@
 #define FALSE 0
 
 #define SALIR 6
-#define SALIR_MENU_LISTADO 14
-#define SALIR_MENU_INFORMES 3
+#define SALIR_MENU_LISTADO 15
+#define SALIR_MENU_INFORMES 4
 
 #define QTY_ALBUMS 100
 #define QTY_GENEROS 4
@@ -70,6 +70,7 @@ int album_mostrarAlbumsSuperanPromedio(eAlbum arrayAlbums[],int limite);
 int album_mostrarAlbumsPorArtista(eAlbum arrayAlbums[],int limite, eArtista arrayArtistas[], int limiteArtistas);
 int album_mostrarAlbumsViniloPorArtistaDeterminado(eAlbum arrayAlbums[],int limite,int idArtista);
 void album_mostrarAlbumsConImporteMasAlto(eAlbum arrayAlbums[],int limite, float importeMasAlto);
+void album_imprimirTipoDeAlbumPorId(eTipoDeAlbum arrayTipoDeAlbum[],int limite, int idTipoDeAlbum);
 void album_imprimirGeneroPorId(eGenero arrayGeneros[], int limite, int idGenero);
 void album_imprimirArtistaPorId(eArtista arrayArtistas[], int limite, int idArtistas);
 void album_imprimirTipoDeArtistaPorId(eTipoArtista arrayTipoArtista[], int limite, int idTipoArtista);
@@ -119,5 +120,6 @@ int album_contadorAlbumsSuperanPromedio(eAlbum arrayAlbums[],int limite, int* pC
 int album_isArrayEmpty(eAlbum arrayAlbums[], int limite);
 int album_isArrayFull(eAlbum arrayAlbums[], int limite);
 //INFORMES ↓
+int album_contadorSolistasAnioDeterminado(eAlbum arrayAlbums[],int limite,int* pContadorSolistas);
 
 #endif /* ALBUMMUSICAL_H_ */

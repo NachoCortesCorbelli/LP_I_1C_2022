@@ -677,6 +677,21 @@ void album_mostrarAlbums(eAlbum arrayAlbums[],int limiteAlbums)
 		}
 	}
 }
+void album_imprimirTipoDeAlbumPorId(eTipoDeAlbum arrayTipoDeAlbum[],int limite, int idTipoDeAlbum)
+{
+	int i;
+	if(arrayTipoDeAlbum != NULL && limite > 0 && idTipoDeAlbum> 0)
+	{
+		for(i = 0;i<limite;i++)
+		{
+			if(arrayTipoDeAlbum[i].idTipoDeAlbum == idTipoDeAlbum )
+			{
+				printf("%-30s|",arrayTipoDeAlbum[i].descripcion);
+				break;
+			}
+		}
+	}
+}
 /**
  * \brief Imprime el genero por id de Genero
  * \param arrayGeneros el array de Generos
@@ -1087,6 +1102,42 @@ int album_ordenamientoPorTitulo(eAlbum arrayAlbums[],int limite)
 	return retorno;
 }
 /**
+ * \brief Funcion que cuenta los solistas de un anio determinado
+ * \param arrayAlbums el array de albums
+ * \param limite el limite del array
+ * \param pContadorSolistas puntero contador de solistas
+ * \return
+ */
+int album_contadorSolistasAnioDeterminado(eAlbum arrayAlbums[],int limite,int* pContadorSolistas)
+{
+	int retorno = -1;
+	int anio;
+	int i;
+	int contador = 0;
+
+	if(arrayAlbums != NULL && limite > 0)
+	{
+		if(!utn_pedirEntero(&anio, "\nINGRESE EL ANIO A BUSCAR: \n", "\nERROR\n", 500, 2022, 15))
+		{
+			for(i = 0; i < limite; i++)
+			{
+				if(arrayAlbums[i].isEmpty == FALSE &&
+				   arrayAlbums[i].fechaPublicacion.anio == anio&&
+				   arrayAlbums[i].idTipoArtista == 1)
+				{
+					contador++;
+					retorno = 0;
+				}
+			}
+		}
+		if(retorno == 0)
+		{
+			*pContadorSolistas = contador;
+		}
+	}
+	return retorno;
+}
+/**
  * \brief Muestra y realiza las funciones del menu de informes
  * \param arrayAlbums el array de albums
  * \param limite el limite del array
@@ -1099,18 +1150,20 @@ int album_subMenuInformes(eAlbum arrayAlbums[],int limite)
 	float promedio;
 	int contadorAlbumsPre2000;
 	int contadorAlbumsSuperanPromedio;
+	int contadorSolistas;
 
 	if(arrayAlbums != NULL && limite > 0)
 	{
 		if(!utn_pedirEntero(&opcion, "\n***SUBMENU***"
-								 	 "\n|INFORMES¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|"
-								 	 "\n|1-TOTAL, PROMEDIO Y CUANTOS ALBUMS SUPERAN EL PROMEDIO|"
-								 	 "\n|2-CANTIDAD DE ALBUMS PRE 2000                         |"
-									 "\n|3-SALIR					                           |"
-								 	 "\n ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯"
+								 	 "\n|INFORMES¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|"
+								 	 "\n|1-TOTAL, PROMEDIO Y CUANTOS ALBUMS SUPERAN EL PROMEDIO  |"
+								 	 "\n|2-CANTIDAD DE ALBUMS PRE 2000                           |"
+									 "\n|3-Informar la cantidad de solistas de un año determinado|"
+									 "\n|4-SALIR					                             |"
+								 	 "\n ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯"
 								 	 "\nOPCION: ",
 									 "\nEROR\nREINGRESE NUEVAMENTE",
-									 1, 3, 5))
+									 1, 4, 5))
 		{
 			switch(opcion)
 			{
@@ -1123,7 +1176,7 @@ int album_subMenuInformes(eAlbum arrayAlbums[],int limite)
 					{
 						printf("\nTOTAL: %.2f\n",importeTotal);
 						printf("\nPROMEDIO: %.2f\n",promedio);
-						printf("\nALBUMS QUE SUPERAN PROMEDIO: %d\n",contadorAlbumsSuperanPromedio);
+						printf("\nCANTIDAD DE ALBUMS QUE SUPERAN PROMEDIO: %d\n",contadorAlbumsSuperanPromedio);
 					}
 				}
 				else
@@ -1149,12 +1202,88 @@ int album_subMenuInformes(eAlbum arrayAlbums[],int limite)
 				}
 				break;
 			case 3:
+				if(album_isArrayEmpty(arrayAlbums, limite)==FALSE)
+				{
+					if(!album_contadorSolistasAnioDeterminado(arrayAlbums, limite,&contadorSolistas))
+					{
+						printf("\nHAY %d SOLISTAS EN DICHO ANIO\n",contadorSolistas);
+					}
+					else
+					{
+						printf("\nNO HAY SOLISTAS EN DICHO ANIO\n");
+					}
+				}
+				else
+				{
+					printf("\nNO HAY ALBUMES CARGADOS EN EL SISTEMA\n");
+				}
+				break;
+			case 4:
 				break;
 			}
 		}
 	}
 	return opcion;
 }
+/**
+ * \brief Funcion que lista los albums por tipo de Album y genero determinado
+ * \param arrayAlbums el array de albums
+ * \param limite el limite del array de albums
+ * \param arrayGeneros el array de generos
+ * \param limiteGeneros el limite del array de generos
+ * \param arrayArtistas el array de artistas
+ * \param limiteArtista el limite del array de artistas
+ * \param arrayTipoArtista el array de tipo de artistas
+ * \param limiteTipoArtista el limite del array de tipo de artista
+ * \param arrayTipoDeAlbum el array de tipo de album
+ * \param limiteTipoDeAlbum el limite del array de tipo de album
+ * \return retorna la opcion en caso de OK, -1 de ERROR
+ */
+int album_listadoPorTipoDeAlbumYGeneroDeterminado(eAlbum arrayAlbums[],int limite,
+												  eGenero arrayGeneros[],int limiteGeneros,
+												  eArtista arrayArtistas[],int limiteArtista,
+												  eTipoArtista arrayTipoArtista[],int limiteTipoArtista,
+												  eTipoDeAlbum arrayTipoDeAlbum[],int limiteTipoDeAlbum)
+{
+	int retorno = -1;
+	int opcionTipoDeAlbum;
+	int opcionGenero;
+	int i;
+
+	if(arrayAlbums != NULL && limite > 0 &&
+	   arrayGeneros != NULL && limiteGeneros > 0 &&
+	   arrayArtistas != NULL && limiteArtista > 0 &&
+	   arrayTipoArtista != NULL && limiteTipoArtista > 0 &&
+	   arrayTipoDeAlbum !=  NULL && limiteTipoDeAlbum > 0)
+	{
+		album_mostrarTipoDeAlbum(arrayTipoDeAlbum, limiteTipoDeAlbum);
+		if(!utn_pedirEntero(&opcionTipoDeAlbum, "\nINGRESE EL ID DE TIPO DE ALBUM: ",
+							"\nERROR\nVUELVA INGRESAR", 1, 3, 15))
+		{
+			album_mostrarGeneros(arrayGeneros, limiteGeneros);
+			if(!utn_pedirEntero(&opcionGenero, "\nINGRESE EL ID DE GENERO: ",
+								"\nERROR\nVUELVA INGRESAR", 1, 4, 15))
+			{
+				for(i = 0; i < limite; i++)
+				{
+					if(arrayAlbums[i].isEmpty == FALSE &&
+					   arrayAlbums[i].idTipoDeAlbum == opcionTipoDeAlbum &&
+					   arrayAlbums[i].idGenero == opcionGenero)
+					{
+						album_imprimirAlbum(arrayAlbums[i]);
+						album_imprimirGeneroPorId(arrayGeneros, limiteGeneros, arrayAlbums[i].idGenero);
+						album_imprimirArtistaPorId(arrayArtistas, limiteArtista, arrayAlbums[i].idArtista);
+						album_imprimirTipoDeArtistaPorId(arrayTipoArtista, limiteTipoArtista, arrayAlbums[i].idTipoArtista);
+						album_imprimirTipoDeAlbumPorId(arrayTipoDeAlbum, limiteTipoDeAlbum, arrayAlbums[i].idTipoDeAlbum);
+						retorno = 0;
+					}
+				}
+			}
+		}
+	}
+	return retorno;
+}
+
 /**
  * \brief Muestra y realiza las funciones del menu de listado
  * \param arrayAlbums el array de albums
@@ -1183,7 +1312,7 @@ int album_subMenuListado(eAlbum arrayAlbums[],int limite,
 
 	if(arrayAlbums != NULL && limite > 0)
 	{
-		if(!utn_pedirEntero(&opcion, "\n***SUBMENU***"
+		if(!utn_pedirEntero(&opcion, "\n***SUBMENU********************"
 								 	 "\n|LISTADO¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|"
 								 	 "\n|1-GENEROS                   |"
 								 	 "\n|2-TIPOS DE ARTISTAS         |"
@@ -1204,11 +1333,15 @@ int album_subMenuListado(eAlbum arrayAlbums[],int limite,
 									 "\n|----------------------------|"
 									 "\n|13-LISTADO ALBUMES DE VINILO|"
 									 "\n|   POR ARTISTA DETERMINADO  |"
-									 "\n|14-SALIR                    |"
+									 "\n|14-Realizar un solo listado |"
+									 "\n|de todos los álbumes de un  |"
+									 "\n|tipo de álbum determinado   |"
+									 "\n|y de un género determinado. |"
+									 "\n|15-SALIR                    |"
 								 	 "\n ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯"
 								 	 "\nOPCION: ",
 									 "\nEROR\nREINGRESE NUEVAMENTE",
-									 1, 14, 5))
+									 1, 15, 5))
 		{
 			switch(opcion)
 			{
@@ -1365,6 +1498,27 @@ int album_subMenuListado(eAlbum arrayAlbums[],int limite,
 				}
 				break;
 			case 14:
+				if(album_isArrayEmpty(arrayAlbums, limite)==FALSE)
+				{
+					if(!album_listadoPorTipoDeAlbumYGeneroDeterminado(arrayAlbums, limite,
+																	  arrayGeneros, limiteGeneros,
+																	  arrayArtistas, limiteArtista,
+																	  arrayTipoArtista, limiteTipoArtista,
+																	  arrayTipoDeAlbum, limiteTipoDeAlbum))
+					{
+						printf("\nMOSTRADOS\n");
+					}
+					else
+					{
+						printf("\nNO HAY ALBUMS EN DICHAS CONDICIONES\n");
+					}
+				}
+				else
+				{
+					printf("\nNO HAY ALBUMES CARGADOS EN EL SISTEMA\n");
+				}
+				break;
+			case 15:
 				break;
 			}
 		}
