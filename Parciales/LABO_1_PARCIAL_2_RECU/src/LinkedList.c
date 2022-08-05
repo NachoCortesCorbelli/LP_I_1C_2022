@@ -617,28 +617,28 @@ LinkedList* ll_mapNew(LinkedList* this, int (*pFunc)(void*))
 int ll_count(LinkedList* this, int (*pFunc)(void*))
 {
 	void* pElement1 = NULL;
-	int retorno = -1;
 	int returnPfunc;
 	int length;
 	int accumulator = 0;
-
-	//CHEQUEAR!
 
     if(this != NULL && pFunc != NULL)//VERIFICACIONES
     {
     	length = ll_len(this);
 		for(int i = 0; i < length; i++)
 		{
-			pElement1 = ll_get(this,i);//OBTENGO EL PRIMER ELEMENTO
-			returnPfunc = pFunc(pElement1);//UTILIZO EL PUNTERO A LA FUNCION(QUE SE ABSTRAE DEL TIPO DE ORDENAMIENTO)
-			if(!returnPfunc)
+			pElement1 = ll_get(this,i);
+			returnPfunc = pFunc(pElement1);
+			if(returnPfunc != -1)
 			{
-				accumulator += accumulator;
-				retorno = 0;
+				accumulator += accumulator + returnPfunc;
+			}
+			else
+			{
+
 			}
 		}
     }
-    return retorno;
+    return accumulator;
 }
 LinkedList* ll_filter(LinkedList* this, int (*pFunc)(void*))
 {
@@ -659,12 +659,7 @@ LinkedList* ll_filter(LinkedList* this, int (*pFunc)(void*))
     			returnPfunc = pFunc(pElement1);//UTILIZO EL PUNTERO A LA FUNCION(QUE SE ABSTRAE DEL TIPO DE ORDENAMIENTO)
     			if(!returnPfunc)
     			{
-    				ll_set(NuevaLista, i, pElement1);
-    			}
-    			else
-    			{
-    				NuevaLista = NULL;
-    				break;
+    				ll_add(NuevaLista, pElement1);
     			}
     		}
     	}
